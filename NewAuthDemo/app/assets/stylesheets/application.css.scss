@@ -12,8 +12,21 @@
  *= require_tree .
  */
 
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+#carousel-example-generic {
+  margin-bottom: 50px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 0px;
+  align: right;
+}
 
 body {
   position: relative;

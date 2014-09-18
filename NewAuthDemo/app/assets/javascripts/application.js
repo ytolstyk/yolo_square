@@ -14,8 +14,14 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
+//= require jquery.jrumble.1.3
 
 $(function () {
+  
+  $( "#sortable" ).sortable();
+  $( "#sortable" ).disableSelection();
+  
+
   var $button = $(".btn-listen-to");
   $button.on("click", function (event) {
     event.preventDefault();
@@ -45,8 +51,32 @@ $(function () {
   $("body").scrollspy({ target: ".navbar-scrolling" });
   
   $("li.error").each(function(index, element) {
-    if element.text() === "Invalid Credentials"
-  }
+    if ($(element).text() === "Invalid Credentials") {
+      $('.sign-in').trigger('click');
+      $('.errors-row').empty();
+      $errorAlert = $('<div>').addClass("alert-danger");
+      $errorAlert.text("Invalid Credentials");
+      $('.sign-in-modal').append($errorAlert);
+    } else if ($(element).text() === "Username or password error") {
+      $(".sign-up").trigger("click");
+      $errorAlert = $("<div>").addClass("alert-danger");
+      $errorAlert.text($(element).text());
+      $(".sign-up-modal").append($errorAlert);
+      $(".errors-row").empty();
+    }
+  });
   
+  // Initialize jRumble on Selector
+  $('.navbar-brand').jrumble();
+  // Start rumble on element
+  $('.navbar-brand').trigger('startRumble');
+  
+  $(".navbar-brand").on("mouseenter", function(event) {
+    $(event.currentTarget).trigger("stopRumble");
+  });
+  
+  $('.navbar-brand').on("mouseleave", function(event) {
+    $(event.currentTarget).trigger('startRumble');
+  });
   
 });
